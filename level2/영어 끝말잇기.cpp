@@ -20,15 +20,11 @@ vector<int> solution(int n, vector<string> words) {
         
         // 현재 단어를 이전에 사용했는지 체크
         for(int j = 0; j<i; j++){
-            if(words[i] == words[j]){
-                check++;
-            }
+            if(words[i] == words[j]) check++;
         }
         
         // 끝말잇기가 맞는지에 대한 체크
-        if(words[i-1][words[i-1].size() -1] != words[i][0]){
-            check++;
-        }
+        if(words[i-1][words[i-1].size() -1] != words[i][0]) check++;
         
         // 체크값이 하나라도 있으면 규칙에 위배되므로
         // 플레이어, 라운드 값을 answer에 넣고 break함
@@ -44,10 +40,8 @@ vector<int> solution(int n, vector<string> words) {
         // 그렇지 않으면 플레이어 증감
         else player++;
         
-        // 맨 마지막 사람이면 라운드를 증감
-        if((i+1)%n==0){
-            round++;
-        }
+        // 맨 마지막 사람이면 라운드를
+        if((i+1)%n==0) round++;
     }
     return answer;
 }
