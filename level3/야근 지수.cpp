@@ -56,15 +56,12 @@ long long solution(int n, vector<int> works)
     }
 
     for (int i = 0; i < works.size(); ++i)
-    {
         answer += works[i] * works[i];
-    }
 
     return answer;
 }
 // 해당 문제가 실패한 이유는 시간복잡도 차이 때문이다
 // sort(NlogN), priority queue(log N) 이기 때문에 priority queue에서 효율성이 더 좋다
-
 
 int main()
 {
