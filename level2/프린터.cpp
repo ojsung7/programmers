@@ -7,9 +7,11 @@
 
 using namespace std;
 
-//실패한 문제풀이
+// 실패한 문제풀이
+// 실패한 이유가 값을 비교하고 현재 값이 제일 큰값이면 vector에서 삭제해줘야함
 int solution(vector<int> priorities, int location) {
-	int answer = location+1;
+	int answer = 0;
+	int cnt = 0;
 
 
 	for (int i = 0; i < priorities.size(); ++i) {
@@ -19,35 +21,69 @@ int solution(vector<int> priorities, int location) {
 
 		// 맨 앞에 값이랑 모든 우선순위 값을 비교하여 크면 check 값 증감
 		for (auto priority : priorities) {
-			if (priority > now) check++;
+			if (priority > now) {
+				check++;
+			}
 		}
 
+		if (check == 0) {
+			priorities[i] = 0;
+		}
 		// check 값이 0보다 크면 맨앞에 값 삭제 후 now 값을 맨 뒤로 이동
-		if (check > 0) {
+		else if (check > 0) {
 			priorities.erase(priorities.begin() + 0);
 			priorities.push_back(now);
-			// location 값이 0보다 크면 감소 시킴
-			// 그렇지 않으면 총 size 값에서 -1을 하고 저장
-			// index를 체크하기 위함
-			if (location > 0) location--;
-			else location = priorities.size() - 1;
+			location--;
 		}
+
 	}
+	if (location < 0) answer = location + priorities.size() + 1;
+	else answer = location+1;
 
-	answer = location + 1;
 	return answer;
 }
 
-int solution(vector<int> priorities, int location) {
-	int answer = 0;
-	return answer;
-}
+//struct PrintJob{
+//	int priority;
+//	int location;
+//};
+//
+//int solution(vector<int> priorities, int location) {
+//	int answer = 0;
+//
+//	queue<PrintJob> printer;
+//
+//	for (int i = 0; i < priorities.size(); i++) {
+//		PrintJob job;
+//		job.location = i;
+//		job.priority = priorities[i];
+//		printer.push(job);
+//	}
+//
+//	while (!printer.empty()) {
+//		PrintJob job = printer.front();
+//		printer.pop();
+//
+//		if (job.priority < *max_element(priorities.begin(), priorities.end())) {
+//			printer.push(job);
+//		}
+//		else {
+//			answer++;
+//			// 원하는 location이면 종료
+//			if (job.location == location) break;
+//			// 프린트 완료
+//			priorities[job.location] = 0;
+//		}
+//	}
+//
+//	return answer;
+//}
 
 int main() {
-	vector<int> priorities = { 2,1,3,2 };
-	int location = 2;
+	vector<int> priorities = { 1,1,9,1,1,1 };
+	int location = 0;
 
-	solution(priorities, location);
+	cout << solution(priorities, location);
 
 	return 0;
 }
