@@ -64,10 +64,12 @@ int solution(vector<int> priorities, int location) {
 	}
 
 	while (!printer.empty()) {
-		//ㅍ
+		// front 값을 미리 저장하고 pop 시킴
 		PrintJob job = printer.front();
 		printer.pop();
 
+		// 미리 정한 front 값보다 큰 값이 존재하면 push 함
+		// push 하면 queue이기 때문에 back으로 감
 		if (job.priority < *max_element(priorities.begin(), priorities.end())) {
 			printer.push(job);
 		}
