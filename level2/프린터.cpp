@@ -43,41 +43,46 @@ int solution(vector<int> priorities, int location) {
 	return answer;
 }
 
-//struct PrintJob{
-//	int priority;
-//	int location;
-//};
-//
-//int solution(vector<int> priorities, int location) {
-//	int answer = 0;
-//
-//	queue<PrintJob> printer;
-//
-//	for (int i = 0; i < priorities.size(); i++) {
-//		PrintJob job;
-//		job.location = i;
-//		job.priority = priorities[i];
-//		printer.push(job);
-//	}
-//
-//	while (!printer.empty()) {
-//		PrintJob job = printer.front();
-//		printer.pop();
-//
-//		if (job.priority < *max_element(priorities.begin(), priorities.end())) {
-//			printer.push(job);
-//		}
-//		else {
-//			answer++;
-//			// 원하는 location이면 종료
-//			if (job.location == location) break;
-//			// 프린트 완료
-//			priorities[job.location] = 0;
-//		}
-//	}
-//
-//	return answer;
-//}
+// 성공한 문제 풀이
+// 구조체를 만들어서 위치값도 같이 저장함
+struct PrintJob{
+	int priority;
+	int location;
+};
+
+int solution(vector<int> priorities, int location) {
+	int answer = 0;
+
+	queue<PrintJob> printer;
+
+	// queue에 저장하면서 index 값도 미리 지정
+	for (int i = 0; i < priorities.size(); i++) {
+		PrintJob job;
+		job.location = i;
+		job.priority = priorities[i];
+		printer.push(job);
+	}
+
+	while (!printer.empty()) {
+		//ㅍ
+		PrintJob job = printer.front();
+		printer.pop();
+
+		if (job.priority < *max_element(priorities.begin(), priorities.end())) {
+			printer.push(job);
+		}
+		else {
+			answer++;
+			// 원하는 location이면 종료
+			if (job.location == location) break;
+			// 프린트 완료
+			priorities[job.location] = 0;
+		}
+	}
+
+	return answer;
+}
+
 
 int main() {
 	vector<int> priorities = { 1,1,9,1,1,1 };
